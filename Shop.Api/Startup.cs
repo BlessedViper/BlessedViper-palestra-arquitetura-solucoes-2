@@ -35,7 +35,7 @@ namespace Shop.Api
             services.AddControllers();
 
             services.AddDbContext<ApiContext>(opt => opt.UseInMemoryDatabase("TesteDb"));
-            services.AddTransient<IAlterarProdutoCommand, AlterarProdutoCommand>();
+            services.AddTransient<IProdutoCommand, ProdutoCommand>();
 
             services.AddSwaggerGen(setup =>
             {

@@ -6,7 +6,7 @@ using Shop.Domain.Interfaces;
 namespace Shop.Api.Controllers;
 [Route("api/[controller]")]
 [ApiController]
-public class ProdutosController(ApiContext context, IAlterarProdutoCommand command) : ControllerBase
+public class ProdutosController(ApiContext context, IProdutoCommand command) : ControllerBase
 {
     [HttpGet]
     public IActionResult ObterProdutos()
@@ -19,5 +19,24 @@ public class ProdutosController(ApiContext context, IAlterarProdutoCommand comma
     {
         command.AlterarProduto(dto);
         return Ok();
+    }
+
+    [HttpPost]
+    public IActionResult AdicionarProduto([FromBody] AdicionarProdutoDto dto)
+    {
+        return Ok(command.AdicionarProduto(dto));
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult DeletarProduto([FromRoute] int id)
+    {
+        command.DeletarProduto(id);
+        return Ok();
+    }
+
+    [HttpGet("{id}")]
+    public IActionResult ObterProdutoPorId([FromRoute] int id)
+    {
+        return Ok(command.ObterProdutoPorId(id));
     }
 }
